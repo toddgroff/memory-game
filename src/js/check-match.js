@@ -1,65 +1,44 @@
 app.checkMatch = function() {
   var firstCard;
-  var firstCheck;
-  var secondCard;
-  var secondCheck;
 
-  $('.card--back').on('click', function () {
-    // var check = $(this).closest('.card').find('.card--flip')
-    // check.prop('checked');
+  $('.card--flip').on('click', function () {
+    var currentCard = $(this)
 
     if (firstCard === undefined) {
-      firstCard = $(this).find('.card--icon').text();
-      firstCheck = $(this).closest('.card').find('.card--flip');
-      console.log($(this).closest('.card').find('.card--flip'))
-      console.log(firstCheck)
+      firstCard = currentCard;
 
-      console.log(firstCard);
-      console.log(firstCheck);
-
-      setTimeout( function() {
-        firstCheck.prop('disabled', true);
-      }, 250);
-        firstCheck.prop('checked', true);
-
-      return firstCard;
+    } else if (firstCard[0] === currentCard[0]) {
+      return false;
 
     } else {
-      secondCard = $(this).find('.card--icon').text();
-      secondCheck = $(this).closest('.card').find('.card--flip');
+      compareCards(firstCard, currentCard);
 
-      console.log(secondCard);
-      console.log(secondCheck);
-      console.log(secondCheck.prop('checked'));
-      secondCheck.prop('checked', true);
-
-      compareCards();
+      firstCard = undefined
     }
+
   });
 
-  function compareCards() {
-    console.log('comparing?')
-    if (firstCard === secondCard) {
-      console.log('test')
-        secondCheck.prop('disabled', true);
+  function compareCards(firstCard, secondCard) {
+    if (firstCard.val() === secondCard.val()) {
+      disableCheck(firstCard);
+      disableCheck(secondCard);
     } else {
-      console.log('test1')
-      console.log(firstCheck)
-      console.log(secondCheck)
-        firstCheck.prop('checked', false);
-        console.log(secondCheck.prop('checked'))
-        secondCheck.prop('checked', false);
-        console.log(secondCheck.prop('checked'))
-        console.log('leave yet?');
-        firstCheck.prop('disabled', false);
-      }
-
-      firstCard = undefined;
-      secondCard = undefined;
+      setTimeout(function() {
+        setCheck(firstCard, false);
+        setCheck(secondCard, false);
+      }, 750);
+    }
   };
 
-};
+  function disableCheck(card) {
+    card.prop('disabled', true);
+  }
 
+  function setCheck(card, state) {
+    card.prop('checked', state);
+  }
+
+};
 
 
 

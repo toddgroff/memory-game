@@ -41,7 +41,7 @@
         <div class="board">
           <% m.cards.forEach(function (card) { %>
           <label class="card">
-             <input type="checkbox" class="card--flip">
+             <input type="checkbox" class="card--flip" value="<%- card %>">
              <span class="card--back">
                  <span class="card--icon"><%- card %></span>
              </span>

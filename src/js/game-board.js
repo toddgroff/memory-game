@@ -12,10 +12,12 @@
   });
 
 app.gameBoard = function (numPairs) {
-  var template = _.template($('#gameBoard').html(), { variable: 'm' });
-  var board = template({
-    cards: app.gameCards(numPairs)
-  });
+    var template = _.template($('#gameBoard').html(), { variable: 'm' });
+    var board = template({
+      cards: app.gameCards(numPairs)
+    });
 
-  $('.main-content').html(board);
+    $('.main-content').html(board);
+
+    app.checkMatch();
 };
